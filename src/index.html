@@ -1,10 +1,45 @@
 <!doctype html>
 <html>
-  <head>
-    <script>
-      
 
-      // TASK #1: Implement the decoderRing function
-    </script>
-  </head>
+<head>
+  <script>
+
+
+    // TASK #1: Implement the decoderRing function
+    function decoderRing(rotation) {
+      // initialize result object
+      res = {
+        encodeMap: {},
+        decodeMap: {},
+        encode: function encode(s) {
+          let encoded = "";
+          s = s.toLowerCase();
+          for (let char of s) {
+            encoded += this.encodeMap[char] || char;
+          }
+          return encoded;
+        },
+        decode: function decode(s) {
+          let decoded = "";
+          s = s.toLowerCase()
+          for (let char of s) {
+            decoded += this.decodeMap[char] || char;
+          }
+          return decoded;
+        }
+      }
+      
+      // initialize character mappings
+      for (let i = 0; i < 26; i++) {
+        let baseCharacter = String.fromCharCode(97 + i);
+        let shiftedCharacter = String.fromCharCode(97 + ((rotation + i) % 26));
+        res.encodeMap[baseCharacter] = shiftedCharacter;
+        res.decodeMap[shiftedCharacter] = baseCharacter;
+      }
+
+      return res;
+    }
+  </script>
+</head>
+
 </html>
